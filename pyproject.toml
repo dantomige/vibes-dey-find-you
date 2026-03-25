@@ -1,0 +1,7 @@
+[project]
+name = "vibes-dey-find-you"
+version = "0.1.0"
+description = "Bring the vibes to you."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
