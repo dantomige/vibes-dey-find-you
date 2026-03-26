@@ -1,5 +1,5 @@
 def main():
-    print("Hello from prediction-market-trader!")
+    print("Hello from vibes-dey-find-you!")
 
 
 if __name__ == "__main__":
