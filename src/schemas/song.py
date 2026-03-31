@@ -2,7 +2,7 @@ from artist import Artist
 from pydantic import BaseModel
 
 class Song(BaseModel):
-    id: int
+    isrc: str
     title: str
     artists: list[Artist]
     release_date: str

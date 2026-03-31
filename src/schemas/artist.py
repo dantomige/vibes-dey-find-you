@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 class Artist(BaseModel):
-    id: str
+    isni: str
     name: str
