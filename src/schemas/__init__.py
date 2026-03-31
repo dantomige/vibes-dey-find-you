@@ -1,4 +1,4 @@
-from song import Song
-from artist import Artist
+from src.schemas.song import Song
+from src.schemas.artist import Artist
 
 __all__ = ["Song", "Artist"]

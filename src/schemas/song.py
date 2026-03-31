@@ -1,5 +1,6 @@
-from artist import Artist
+from src.schemas.artist import Artist
 from pydantic import BaseModel
+
 
 class Song(BaseModel):
     isrc: str
@@ -7,8 +8,9 @@ class Song(BaseModel):
     artists: list[Artist]
     release_date: str
     genre: str
-    duration: int # duration in milliseconds
+    duration: int  # duration in milliseconds
     language: str
+
 
 # class Song(BaseModel):
 #     id: int
