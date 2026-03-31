@@ -275,12 +275,16 @@ source = { virtual = "." }
 dependencies = [
     { name = "dotenv" },
     { name = "fastapi" },
+    { name = "pydantic" },
     { name = "requests" },
+    { name = "typing-inspection" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "fastapi", specifier = ">=0.135.2" },
+    { name = "pydantic", specifier = ">=2.12.5" },
     { name = "requests", specifier = ">=2.33.0" },
+    { name = "typing-inspection", specifier = ">=0.4.2" },
 ]
