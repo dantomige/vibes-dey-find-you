@@ -1,0 +1,136 @@
+import os
+import time
+import requests
+from dotenv import load_dotenv
+from collections import Counter
+from src.schemas import Song, Artist
+
+load_dotenv()
+
+class MusicBrainzService:
+
+    BASE_URL = "https://musicbrainz.org/ws/2/"
+    LIMIT = 100
+
+    def __init__(self, header):
+        self.header = header
+
+    def _artist_from_json(self, artist_json) -> Artist:
+        return Artist(
+            id=artist_json["id"],
+            name=artist_json["name"]
+        )
+
+    def _song_from_json(self, song_json) -> Song:
+        raise NotImplementedError
+
+    def list_genres(self) -> list[str]:
+        """Fetch all genres from MusicBrainz."""
+
+        endpoint = f"{self.BASE_URL}genre/all?limit={self.LIMIT}&fmt=txt"
+
+        response = requests.get(endpoint, headers=self.header)
+        if response.status_code != 200:
+            print(f"Error fetching data: {response.status_code}")
+            return []
+        genres = response.text.splitlines()
+
+        return genres
+
+    def list_songs_in_genres(self, genres, date_from=None, date_to=None) -> list[Song]:
+        """
+        Fetch songs in the specified genres from MusicBrainz.
+        Args:
+            genres (list[str]): List of genres to search for.
+            date_from (str, optional): Start date for filtering songs (YYYY-MM-DD). Defaults to None.
+            date_to (str, optional): End date for filtering songs (YYYY-MM-DD). Defaults to None.
+        Returns:
+            list[Song]: List of songs in the specified genres.
+        """
+        raise NotImplementedError
+
+    def list_artists_in_genres(self, genres) -> list[Artist]:
+        """
+        Fetch artists in the specified genres from MusicBrainz.
+        Args:
+            genres (list[str]): List of genres to search for.
+            Returns:
+                list[Artist]: List of artists in the specified genres.
+        """
+
+        all_artists = []
+        seen_artist_ids = set()
+
+        for genre in genres:
+
+            offset = 0
+            count = None
+
+            while count != 0:
+                endpoints = (
+                    f"{self.BASE_URL}artist?query=tag:{genre}&limit={self.LIMIT}&offset={offset}&fmt=json"
+                )
+                response = requests.get(endpoints, headers=self.header)
+
+                if response.status_code != 200:
+                    print(f"Error fetching data: {response.status_code}")
+
+                response_json = response.json()
+
+                print(response_json["count"], response_json["offset"])
+
+                artists_jsons = response_json["artists"]
+                artists = [self._artist_from_json(artist) for artist in artists_jsons]
+                new_artists = [artist for artist in artists if artist.id not in seen_artist_ids]
+
+                all_artists.extend(new_artists)
+                seen_artist_ids.update([new_artist.id for new_artist in new_artists])
+
+                count = len(artists)
+                offset += count
+
+                time.sleep(1)
+
+        return all_artists
+
+
+if __name__ == "__main__":
+
+    headers = {"User-Agent": f"VibesDeyFindYou/1.0 (contact: {os.getenv("HEADER_CONTACT")})"}
+
+    service = MusicBrainzService(headers)
+
+    afro_genres = [
+        "afrobeats",
+        "afrobeat",
+        "afropiano",
+        "afroswing",
+        "amapiano",
+        "alté",
+        "highlife",
+    ]
+
+    afrobeats_artists = service.list_artists_in_genres(afro_genres)
+    afrobeats_artists_names = [afrobeats_artist.name for afrobeats_artist in afrobeats_artists]
+    artist_names_freq = Counter(afrobeats_artists_names)
+
+    for name, freq in artist_names_freq.items():
+        if freq > 1:
+            print("Repeated name: ", name)
+
+            for artist in afrobeats_artists:
+                if artist.name == name:
+                    print("Repeated names ids: ", {artist.id})
+
+    print(afrobeats_artists_names)
+    print(len(afrobeats_artists_names))
+    print(len(set(afrobeats_artists_names)) == len(afrobeats_artists_names))
+    print(len(set(a.id for a in afrobeats_artists)) == len(afrobeats_artists))
+
+    popular_artists = ["Wizkid", "Burna Boy", "Davido", "Ruger"]
+
+    for artist in popular_artists:
+        print(
+            f"Checking {artist} in found afrobeats artists: ",
+            artist in afrobeats_artists_names,
+        )
