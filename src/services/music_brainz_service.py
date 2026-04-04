@@ -21,7 +21,7 @@ class MusicBrainzService:
         return [tag["name"] for tag in tags_json]
 
     def _artist_from_json(self, artist_json) -> Artist:
-        return Artist(id=artist_json["id"], name=artist_json["name"])
+        return Artist(arid=artist_json["id"], name=artist_json["name"])
 
     def _song_from_json(self, song_json) -> Song:
         return Song(
@@ -60,7 +60,7 @@ class MusicBrainzService:
             list[Song]: List of songs in the specified genres.
         """
         all_songs = []
-        seen_song_ids = set()
+        seen_song_mbids = set()
 
         for genre in genres:
 
@@ -81,10 +81,10 @@ class MusicBrainzService:
 
                 songs_jsons = response_json["recordings"]
                 songs = [self._song_from_json(song_json) for song_json in songs_jsons]
-                new_songs = [song for song in songs if song.id not in seen_song_ids]
+                new_songs = [song for song in songs if song.mbid not in seen_song_mbids]
 
                 all_songs.extend(new_songs)
-                seen_song_ids.update([new_song.id for new_song in new_songs])
+                seen_song_mbids.update([new_song.mbid for new_song in new_songs])
 
                 count = len(songs)
                 offset += count
@@ -103,7 +103,7 @@ class MusicBrainzService:
         """
 
         all_artists = []
-        seen_artist_ids = set()
+        seen_artist_arids = set()
 
         for genre in genres:
 
@@ -122,11 +122,11 @@ class MusicBrainzService:
                 artists_jsons = response_json["artists"]
                 artists = [self._artist_from_json(artist) for artist in artists_jsons]
                 new_artists = [
-                    artist for artist in artists if artist.id not in seen_artist_ids
+                    artist for artist in artists if artist.arid not in seen_artist_arids
                 ]
 
                 all_artists.extend(new_artists)
-                seen_artist_ids.update([new_artist.id for new_artist in new_artists])
+                seen_artist_arids.update([new_artist.arid for new_artist in new_artists])
 
                 count = len(artists)
                 offset += count
@@ -166,12 +166,12 @@ if __name__ == "__main__":
 
             for artist in afrobeats_artists:
                 if artist.name == name:
-                    print("Repeated names ids: ", {artist.id})
+                    print("Repeated names ids: ", {artist.arid})
 
     print(afrobeats_artists_names)
     print(len(afrobeats_artists_names))
     print(len(set(afrobeats_artists_names)) == len(afrobeats_artists_names))
-    print(len(set(a.id for a in afrobeats_artists)) == len(afrobeats_artists))
+    print(len(set(a.arid for a in afrobeats_artists)) == len(afrobeats_artists))
 
     popular_artists = ["Wizkid", "Burna Boy", "Davido", "Ruger"]
 
