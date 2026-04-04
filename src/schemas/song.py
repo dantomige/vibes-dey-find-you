@@ -16,6 +16,6 @@ class Song(BaseModel):
     audio_url: Optional[str] = None
 
     @property
-    def id(self) -> str:
-        normalized = f"{self.title.lower()}|{'|'.join(sorted(a.id for a in self.artists))}|{self.duration or ''}"
+    def mbid(self) -> str:
+        normalized = f"{self.title.lower()}|{'|'.join(sorted(a.arid for a in self.artists))}|{self.duration or ''}"
         return hashlib.sha256(normalized.encode()).hexdigest()
