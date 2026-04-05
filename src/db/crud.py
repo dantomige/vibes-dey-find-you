@@ -1,15 +1,15 @@
-from src.schemas.song import Song as SongItem
-from src.db.base import Song, Artist, song_artist
+from src.schemas.song import Song
+from src.db.base import SongModel, ArtistModel, song_artists_table
 
 class SongRepository:
 
     def __init__(self, db):
         self.db = db
 
-    def add_songs(self, songs: list[SongItem]):
+    def add_songs(self, songs: list[Song]):
         raise NotImplementedError
     
-    def get_all_songs(self) -> list[SongItem]:
+    def get_all_songs(self) -> list[Song]:
         raise NotImplementedError
     
     def update_song(self, id: str, song: Song):
