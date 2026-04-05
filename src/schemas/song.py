@@ -5,9 +5,9 @@ from src.schemas.date import Date
 from src.schemas.artist import Artist
 
 class Song(BaseModel):
-    isrc: Optional[str] = None
     title: str
     artists: list[Artist]
+    isrc: Optional[str] = None
     release_date: Optional[Date] = None
     genre: Optional[list[str]] = None
     duration: Optional[int] = None  # duration in milliseconds
