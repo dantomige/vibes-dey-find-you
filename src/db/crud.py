@@ -9,11 +9,14 @@ class SongRepository:
     def add_songs(self, songs: list[Song]):
         raise NotImplementedError
     
+    def get_song(self, mbid: str):
+        raise NotImplementedError
+    
     def get_all_songs(self) -> list[Song]:
         raise NotImplementedError
     
-    def update_song(self, id: str, song: Song):
+    def update_song(self, mbid: str, song: Song):
         raise NotImplementedError
     
-    def remove_song(self, id: str):
+    def remove_song(self, mbid: str):
         raise NotImplementedError
