@@ -16,7 +16,7 @@ class SongModel(Base):
     __tablename__ = "songs"
 
     id = Column(String, primary_key=True)
-    mbid = Column(String, nullable=False)
+    mbid = Column(String, unique=True, nullable=False)
     title = Column(String, nullable=False)
     duration = Column(Integer, nullable=True)
     isrc = Column(String, nullable=True)
@@ -29,7 +29,7 @@ class ArtistModel(Base):
     __tablename__ = "artists"
 
     id = Column(String, primary_key=True)
-    arid = Column(String, nullable=False)
+    arid = Column(String, unique=True, nullable=False)
     name = Column(String, nullable=False)
 
     songs = relationship(
