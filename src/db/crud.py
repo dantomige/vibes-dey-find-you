@@ -20,3 +20,6 @@ class SongRepository:
     
     def remove_song(self, mbid: str):
         raise NotImplementedError
+
+    def to_dataframe(self):
+        raise NotImplementedError
