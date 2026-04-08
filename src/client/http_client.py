@@ -4,5 +4,5 @@ from src.client.base import BaseClient
 
 class HTTPClient(BaseClient):
     
-    def get(self, endpoint, header=None):
+    def get(self, endpoint):
         raise NotImplementedError
