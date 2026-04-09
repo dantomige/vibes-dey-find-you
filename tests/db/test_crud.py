@@ -132,15 +132,15 @@ def test_get_song(db_session):
     expected_turbulence_normalized = normalize_song(turbulence)
 
     song_repo.add_songs(songs)
-    result_alien_girl = song_repo.get_song(mbid=alien_girl.mbid)
-    result_turbulence = song_repo.get_song(mbid=turbulence.mbid)
+    result_alien_girl = song_repo.get_song(rid=alien_girl.rid)
+    result_turbulence = song_repo.get_song(rid=turbulence.rid)
 
     assert normalize_song(result_alien_girl) == expected_alien_girl_normalized
     assert normalize_song(result_turbulence) == expected_turbulence_normalized
 
     # throws errors on id that doesn't exist
     with pytest.raises(Exception):
-        _ = song_repo.get_song(mbid="random_id_not_in_repo")
+        _ = song_repo.get_song(rid="random_id_not_in_repo")
 
 def test_get_all_songs(db_session):
     db = db_session
@@ -181,12 +181,12 @@ def test_update_songs(db_session):
     ]
 
     song_repo.add_songs(songs)
-    result = song_repo.get_song(mbid=alien_girl.mbid)
+    result = song_repo.get_song(rid=alien_girl.rid)
     assert normalize_song(result) == normalize_song(alien_girl)
 
     new_alien_girl = Song(title="Alien Girl", artists=[j_hus], duration=10000)
-    song_repo.update_song(mbid=alien_girl.mbid, song=new_alien_girl)
-    result = song_repo.get_song(mbid=alien_girl.mbid)
+    song_repo.update_song(rid=alien_girl.rid, song=new_alien_girl)
+    result = song_repo.get_song(rid=alien_girl.rid)
 
     assert song_repo.get_all_songs() == 2
     assert result.duration == 10000
@@ -210,9 +210,13 @@ def test_remove_song(db_session):
     ]
 
     song_repo.add_songs(songs)
-    song_repo.remove_song(mbid=alien_girl.mbid)
+    song_repo.remove_song(rid=alien_girl.rid)
 
     with pytest.raises(Exception):
-        _ = song_repo.get_song(song_repo.mbid)
+        _ = song_repo.get_song(song_repo.rid)
 
     assert len(song_repo.get_all_songs()) == 1
+
+
+def test_to_dataframe(db_session):
+    pass

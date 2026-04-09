@@ -9,16 +9,16 @@ class SongRepository:
     def add_songs(self, songs: list[Song]):
         raise NotImplementedError
     
-    def get_song(self, mbid: str):
+    def get_song(self, rid: str):
         raise NotImplementedError
     
     def get_all_songs(self) -> list[Song]:
         raise NotImplementedError
     
-    def update_song(self, mbid: str, song: Song):
+    def update_song(self, rid: str, song: Song):
         raise NotImplementedError
     
-    def remove_song(self, mbid: str):
+    def remove_song(self, rid: str):
         raise NotImplementedError
 
     def to_dataframe(self):
