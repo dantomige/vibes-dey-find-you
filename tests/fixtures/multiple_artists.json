@@ -1,0 +1,45 @@
+{
+    "first_response": {
+        "count": 2,
+        "offset": 0,
+        "artists": [
+            {
+                "id": "1001",
+                "name": "Asake"
+            },
+            {
+                "id": "1002",
+                "name": "Ruger"
+            }
+        ]
+    },
+    "second_response": {
+        "count": 2,
+        "offset": 2,
+        "artists": [
+            {
+                "id": "1003",
+                "name": "Davido"
+            },
+            {
+                "id": "1004",
+                "name": "Burna Boy"
+            }
+        ]
+    },
+    "third_response": {
+        "count": 1,
+        "offset": 4,
+        "artists": [
+            {
+                "id": "1005",
+                "name": "Shallipopi"
+            }
+        ]
+    },
+    "fourth_response": {
+        "count": 0,
+        "offset": 5,
+        "artists": []
+    }
+}

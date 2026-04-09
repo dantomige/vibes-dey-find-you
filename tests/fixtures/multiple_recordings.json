@@ -1,0 +1,67 @@
+{
+    "first_response": {
+        "count": 1,
+        "offset": 0,
+        "recordings": [
+            {
+                "id": "1001",
+                "title": "Asiwaju",
+                "artist-credit": [
+                    {
+                        "artist": {
+                            "id": "art1001",
+                            "name": "Ruger"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "second_response": {
+        "count": 1,
+        "offset": 1,
+        "recordings": [
+            {
+                "id": "1002",
+                "title": "Ojuelegba",
+                "artist-credit": [
+                    {
+                        "artist": {
+                            "id": "art1002",
+                            "name": "Wizkid"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "third_response": {
+        "count": 1,
+        "offset": 2,
+        "recordings": [
+            {
+                "id": "1003",
+                "title": "Active",
+                "artist-credit": [
+                    {
+                        "artist": {
+                            "id": "art1003",
+                            "name": "Asake"
+                        }
+                    },
+                    {
+                        "artist": {
+                            "id": "art1004",
+                            "name": "Travis Scott"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "fourth_response": {
+        "count": 0,
+        "offset": 3,
+        "recordings": []
+    }
+}
