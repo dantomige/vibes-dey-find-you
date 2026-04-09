@@ -4,7 +4,9 @@ from pydantic import BaseModel
 from src.schemas.date import Date
 from src.schemas.artist import Artist
 
+
 class Song(BaseModel):
+    rid: str
     title: str
     artists: list[Artist]
     isrc: Optional[str] = None
