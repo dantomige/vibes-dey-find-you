@@ -16,6 +16,7 @@ class SongModel(Base):
     __tablename__ = "songs"
 
     id = Column(String, primary_key=True)
+    rid = Column(String, unique=True, nullable=False)
     mbid = Column(String, unique=True, nullable=False)
     title = Column(String, nullable=False)
     duration = Column(Integer, nullable=True)
