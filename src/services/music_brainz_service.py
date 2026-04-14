@@ -6,16 +6,15 @@ from dotenv import load_dotenv
 from collections import Counter
 from src.schemas import Song, Artist, Date
 
-load_dotenv()
-
 
 class MusicBrainzService:
 
     BASE_URL = "https://musicbrainz.org/ws/2/"
-    LIMIT = 100
+    PAGE_LIMIT = 100
 
-    def __init__(self, header):
+    def __init__(self, header, limit=None):
         self.header = header
+        self.limit = limit if limit is not None else self.PAGE_LIMIT
 
     def _genre_from_json(self, tags_json) -> list[str]:
         return [tag["name"] for tag in tags_json]
@@ -25,6 +24,7 @@ class MusicBrainzService:
 
     def _song_from_json(self, song_json) -> Song:
         return Song(
+            rid=song_json.get("rid"),
             isrc=song_json.get("isrc"),
             title=song_json["title"],
             artists=[
@@ -39,7 +39,7 @@ class MusicBrainzService:
     def list_genres(self) -> list[str]:
         """Fetch all genres from MusicBrainz."""
 
-        endpoint = f"{self.BASE_URL}genre/all?limit={self.LIMIT}&fmt=txt"
+        endpoint = f"{self.BASE_URL}genre/all?limit={self.limit}&fmt=txt"
 
         response = requests.get(endpoint, headers=self.header)
         if response.status_code != 200:
@@ -49,13 +49,57 @@ class MusicBrainzService:
         genres = response.text.splitlines()
         return genres
 
-    def list_songs_in_genres(self, genres, date_from=None, date_to=None) -> list[Song]:
+    def list_artists_in_genres(self, genres) -> list[Artist]:
         """
-        Fetch songs in the specified genres from MusicBrainz.
+        Fetch artists in the specified genres from MusicBrainz.
         Args:
             genres (list[str]): List of genres to search for.
-            date_from (str, optional): Start date for filtering songs (YYYY-MM-DD). Defaults to None.
-            date_to (str, optional): End date for filtering songs (YYYY-MM-DD). Defaults to None.
+            Returns:
+                list[Artist]: List of artists in the specified genres.
+        """
+
+        all_artists = []
+        seen_artist_arids = set()
+
+        for genre in genres:
+
+            offset = 0
+            count = None
+
+            while count != 0:
+                endpoints = f"{self.BASE_URL}artist?query=tag:{genre}&limit={self.limit}&offset={offset}&fmt=json"
+                response = requests.get(endpoints, headers=self.header)
+
+                if response.status_code != 200:
+                    print(f"Error fetching data: {response.status_code}")
+
+                response_json = response.json()
+
+                artists_jsons = response_json["artists"]
+                artists = [self._artist_from_json(artist) for artist in artists_jsons]
+                new_artists = [
+                    artist for artist in artists if artist.arid not in seen_artist_arids
+                ]
+
+                all_artists.extend(new_artists)
+                seen_artist_arids.update(
+                    [new_artist.arid for new_artist in new_artists]
+                )
+
+                count = len(artists)
+                offset += count
+
+                time.sleep(1)
+
+        return all_artists
+    
+    def list_songs_in_genres(self, genres, date_from=None, date_to=None) -> list[Song]:
+        """
+        Fetch songs in the specified genres from MusicBrainz. Filters by first-release-date (inclusive) if given
+        Args:
+            genres (list[str]): List of genres to search for.
+            date_from (str, optional): Start date for filtering songs (YYYY-MM-DD). Filter by first-release-date. Defaults to None.
+            date_to (str, optional): End date for filtering songs (YYYY-MM-DD). Filter by first-release-date. Defaults to None.
         Returns:
             list[Song]: List of songs in the specified genres.
         """
@@ -68,7 +112,7 @@ class MusicBrainzService:
             count = None
 
             while count != 0:
-                endpoint = f"{self.BASE_URL}recording?query=tag:{genre}&limit={self.LIMIT}&offset={offset}&fmt=json"
+                endpoint = f"{self.BASE_URL}recording?query=tag:{genre}&limit={self.limit}&offset={offset}&fmt=json"
 
                 response = requests.get(endpoint, headers=self.header)
 
@@ -93,50 +137,10 @@ class MusicBrainzService:
 
         return all_songs
 
-    def list_artists_in_genres(self, genres) -> list[Artist]:
-        """
-        Fetch artists in the specified genres from MusicBrainz.
-        Args:
-            genres (list[str]): List of genres to search for.
-            Returns:
-                list[Artist]: List of artists in the specified genres.
-        """
-
-        all_artists = []
-        seen_artist_arids = set()
-
-        for genre in genres:
-
-            offset = 0
-            count = None
-
-            while count != 0:
-                endpoints = f"{self.BASE_URL}artist?query=tag:{genre}&limit={self.LIMIT}&offset={offset}&fmt=json"
-                response = requests.get(endpoints, headers=self.header)
-
-                if response.status_code != 200:
-                    print(f"Error fetching data: {response.status_code}")
-
-                response_json = response.json()
-
-                artists_jsons = response_json["artists"]
-                artists = [self._artist_from_json(artist) for artist in artists_jsons]
-                new_artists = [
-                    artist for artist in artists if artist.arid not in seen_artist_arids
-                ]
-
-                all_artists.extend(new_artists)
-                seen_artist_arids.update([new_artist.arid for new_artist in new_artists])
-
-                count = len(artists)
-                offset += count
-
-                time.sleep(1)
-
-        return all_artists
-
 
 if __name__ == "__main__":
+
+    load_dotenv()
 
     headers = {
         "User-Agent": f"VibesDeyFindYou/1.0 (contact: {os.getenv("HEADER_CONTACT")})"
