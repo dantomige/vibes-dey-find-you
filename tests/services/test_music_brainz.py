@@ -24,16 +24,16 @@ def test_artists_in_genres(load_fixture):
     all_response_json = load_fixture("multiple_recordings.json")
 
     mock_response_first_page = Mock()
-    mock_response_first_page.json.return_value = all_response_json["first_response"]
+    mock_response_first_page.json.return_value = all_response_json["pages"][0]
 
     mock_response_second_page = Mock()
-    mock_response_second_page.json.return_value = all_response_json["second_response"]
+    mock_response_second_page.json.return_value = all_response_json["pages"][1]
 
     mock_response_third_page = Mock()
-    mock_response_third_page.json.return_value = all_response_json["third_response"]
+    mock_response_third_page.json.return_value = all_response_json["pages"][2]
 
     mock_response_fourth_page = Mock()
-    mock_response_fourth_page.json.return_value = all_response_json["fourth_response"]
+    mock_response_fourth_page.json.return_value = all_response_json["pages"][3]
 
     mock_client.get.side_effect = [
         mock_response_first_page,
@@ -69,16 +69,16 @@ def test_songs_in_genres(load_fixture):
     all_response_json = load_fixture("multiple_recordings.json")
 
     mock_response_first_page = Mock()
-    mock_response_first_page.json.return_value = all_response_json["first_response"]
+    mock_response_first_page.json.return_value = all_response_json["pages"][0]
 
     mock_response_second_page = Mock()
-    mock_response_second_page.json.return_value = all_response_json["second_response"]
+    mock_response_second_page.json.return_value = all_response_json["pages"][1]
 
     mock_response_third_page = Mock()
-    mock_response_third_page.json.return_value = all_response_json["third_response"]
+    mock_response_third_page.json.return_value = all_response_json["pages"][2]
 
     mock_response_fourth_page = Mock()
-    mock_response_fourth_page.json.return_value = all_response_json["fourth_response"]
+    mock_response_fourth_page.json.return_value = all_response_json["pages"][3]
 
     mock_client.get.side_effect = [
         mock_response_first_page,
