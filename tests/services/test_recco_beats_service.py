@@ -5,6 +5,14 @@ from src.schemas.audio_features import AudioFeatures
 from src.services.recco_beats_service import ReccoBeatService
 
 
+def normalize(song: Song) -> tuple:
+    return (
+        song.recco_beats_id,
+        song.title,
+        sorted(a.name for a in song.artists),
+    )
+
+
 def test_service_initialization():
     mock_client = Mock()
     service = ReccoBeatService(client=mock_client)
@@ -118,25 +126,56 @@ def test_get_artist_songs(load_fixture):
         Song(
             title="LA",
             artists=[
-                Artist(name="Kendrick Lamar"),
-                Artist(name="Ty Dolla $ign"),
-                Artist(name="Brandy"),
-                Artist(name="James Fauntleroy"),
+                Artist(
+                    name="Kendrick Lamar",
+                    recco_beats_id="caa924b3-075d-462a-bc84-b8da4ebb9f38",
+                ),
+                Artist(
+                    name="Ty Dolla $ign",
+                    recco_beats_id="d90b6b60-be8b-42a4-931a-aefc009ee7b5",
+                ),
+                Artist(
+                    name="Brandy", recco_beats_id="c9862dbd-82d5-4e82-83b2-bce16d2ca84b"
+                ),
+                Artist(
+                    name="James Fauntleroy",
+                    recco_beats_id="af96464c-4443-4999-b7fe-ed98b9f618f3",
+                ),
             ],
             recco_beats_id="db29b2b4-69b9-4965-99ce-fbd35b992dce",
         ),
         Song(
             title="Look Over Your Shoulder (feat. Kendrick Lamar)",
-            artists=[Artist(name="Kendrick Lamar"), Artist(name="Busta Rhymes")],
+            artists=[
+                Artist(
+                    name="Kendrick Lamar",
+                    recco_beats_id="caa924b3-075d-462a-bc84-b8da4ebb9f38",
+                ),
+                Artist(
+                    name="Busta Rhymes",
+                    recco_beats_id="0aa9b317-cd83-40ce-a7a5-6b15be612953",
+                ),
+            ],
             recco_beats_id="a0f93935-6b63-4ed6-9359-40eb5a12c22f",
         ),
         Song(
             title="Buy The World",
             artists=[
-                Artist(name="Kendrick Lamar"),
-                Artist(name="Mike WiLL Made-It"),
-                Artist(name="Lil Wayne"),
-                Artist(name="Future"),
+                Artist(
+                    name="Kendrick Lamar",
+                    recco_beats_id="caa924b3-075d-462a-bc84-b8da4ebb9f38",
+                ),
+                Artist(
+                    name="Mike WiLL Made-It",
+                    recco_beats_id="07441fd9-9265-4a8b-b9f9-e6ce4ff49600",
+                ),
+                Artist(
+                    name="Lil Wayne",
+                    recco_beats_id="6b604a96-988f-4c7b-98c6-3ed7d808d14b",
+                ),
+                Artist(
+                    name="Future", recco_beats_id="7e14b431-9946-408f-8906-4bd83ad2a331"
+                ),
             ],
             recco_beats_id="c0e21963-2e17-4df4-a0f9-6142812f3e7c",
         ),
@@ -147,7 +186,7 @@ def test_get_artist_songs(load_fixture):
 
     assert [p["page"] for p in api_call_params] == [0, 1]
     assert [p["size"] for p in api_call_params] == [2, 2]
-    assert sorted(s.title for s in songs) == sorted(s.title for s in expected_songs)
+    assert sorted(map(normalize, songs)) == sorted(map(normalize, expected_songs))
 
 
 def test_fetch_audio_features(load_fixture):
