@@ -3,7 +3,6 @@ from typing import Optional
 from pydantic import BaseModel
 from src.schemas.date import Date
 from src.schemas.artist import Artist
-from src.schemas.audio_features import AudioFeatures
 
 
 class Song(BaseModel):
@@ -20,7 +19,6 @@ class Song(BaseModel):
     album: Optional[int] = None
     language: Optional[str] = None
     audio_url: Optional[str] = None
-    audio_features: Optional[AudioFeatures] = None
 
     @property
     def hash(self) -> str:
