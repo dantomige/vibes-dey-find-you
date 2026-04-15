@@ -1,0 +1,128 @@
+{
+  "pages": [
+    {
+      "content": [
+        {
+          "id": "2740e843-bd29-47d9-afcb-9b97f3e14ef3",
+          "trackTitle": "Wanna Be Heard",
+          "artists": [
+            {
+              "id": "caa924b3-075d-462a-bc84-b8da4ebb9f38",
+              "name": "Kendrick Lamar",
+              "href": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
+            }
+          ],
+          "durationMs": 277292,
+          "isrc": "FR5R00901562",
+          "ean": null,
+          "upc": null,
+          "href": "https://open.spotify.com/track/00ibm2mniJevaKFk9rllrX",
+          "availableCountries": "",
+          "popularity": 0
+        },
+        {
+          "id": "db29b2b4-69b9-4965-99ce-fbd35b992dce",
+          "trackTitle": "LA",
+          "artists": [
+            {
+              "id": "d90b6b60-be8b-42a4-931a-aefc009ee7b5",
+              "name": "Ty Dolla $ign",
+              "href": "https://open.spotify.com/artist/7c0XG5cIJTrrAgEC3ULPiq"
+            },
+            {
+              "id": "caa924b3-075d-462a-bc84-b8da4ebb9f38",
+              "name": "Kendrick Lamar",
+              "href": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
+            },
+            {
+              "id": "c9862dbd-82d5-4e82-83b2-bce16d2ca84b",
+              "name": "Brandy",
+              "href": "https://open.spotify.com/artist/05oH07COxkXKIMt6mIPRee"
+            },
+            {
+              "id": "af96464c-4443-4999-b7fe-ed98b9f618f3",
+              "name": "James Fauntleroy",
+              "href": "https://open.spotify.com/artist/5ooSG9S0glqP5ZrqqaHBvT"
+            }
+          ],
+          "durationMs": 307254,
+          "isrc": "USAT21503251",
+          "ean": null,
+          "upc": null,
+          "href": "https://open.spotify.com/track/00iiwyPq0Nt3TvyUYNSSK5",
+          "availableCountries": "...",
+          "popularity": 0
+        }
+      ],
+      "page": 0,
+      "size": 2,
+      "totalElements": 3,
+      "totalPages": 2
+    },
+
+    {
+      "content": [
+        {
+          "id": "a0f93935-6b63-4ed6-9359-40eb5a12c22f",
+          "trackTitle": "Look Over Your Shoulder (feat. Kendrick Lamar)",
+          "artists": [
+            {
+              "id": "0aa9b317-cd83-40ce-a7a5-6b15be612953",
+              "name": "Busta Rhymes",
+              "href": "https://open.spotify.com/artist/1YfEcTuGvBQ8xSD1f53UnK"
+            },
+            {
+              "id": "caa924b3-075d-462a-bc84-b8da4ebb9f38",
+              "name": "Kendrick Lamar",
+              "href": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
+            }
+          ],
+          "durationMs": 248810,
+          "isrc": "USUYG1334937",
+          "ean": null,
+          "upc": null,
+          "href": "https://open.spotify.com/track/00R0fEFZGb5hyTgF1nrRCq",
+          "availableCountries": "...",
+          "popularity": 47
+        },
+        {
+          "id": "c0e21963-2e17-4df4-a0f9-6142812f3e7c",
+          "trackTitle": "Buy The World",
+          "artists": [
+            {
+              "id": "07441fd9-9265-4a8b-b9f9-e6ce4ff49600",
+              "name": "Mike WiLL Made-It",
+              "href": "https://open.spotify.com/artist/0NWbwDZY1VkRqFafuQm6wk"
+            },
+            {
+              "id": "6b604a96-988f-4c7b-98c6-3ed7d808d14b",
+              "name": "Lil Wayne",
+              "href": "https://open.spotify.com/artist/55Aa2cqylxrFIXC767Z865"
+            },
+            {
+              "id": "caa924b3-075d-462a-bc84-b8da4ebb9f38",
+              "name": "Kendrick Lamar",
+              "href": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
+            },
+            {
+              "id": "7e14b431-9946-408f-8906-4bd83ad2a331",
+              "name": "Future",
+              "href": "https://open.spotify.com/artist/1RyvyyTE3xzB2ZywiAwp0i"
+            }
+          ],
+          "durationMs": 226693,
+          "isrc": "USUM71407261",
+          "ean": null,
+          "upc": null,
+          "href": "https://open.spotify.com/track/01A7PEPSnmtixFPfB2UTal",
+          "availableCountries": "...",
+          "popularity": 45
+        }
+      ],
+      "page": 0,
+      "size": 1,
+      "totalElements": 3,
+      "totalPages": 2
+    }
+  ]
+}

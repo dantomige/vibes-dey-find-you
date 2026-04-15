@@ -1,0 +1,28 @@
+{
+  "content": [
+    {
+      "id": "75affad0-7ac0-44ae-9525-5c688c0104bc",
+      "name": "Kendrick Lamar & Jay Rock",
+      "href": "https://open.spotify.com/artist/3M8jTGG0AItu4XYotTlC6M"
+    },
+    {
+      "id": "98f22824-ba63-4a2f-8c77-54a6e89b9abc",
+      "name": "Kendrick Lamar's Moneytrees",
+      "href": "https://open.spotify.com/artist/6BunlKXw4BT2CrQACSjDPW"
+    },
+    {
+      "id": "caa924b3-075d-462a-bc84-b8da4ebb9f38",
+      "name": "Kendrick Lamar",
+      "href": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg"
+    },
+    {
+      "id": "e333523f-f16c-43ab-aff5-a02cfd669f62",
+      "name": "Kendrick Lamar Jackson",
+      "href": "https://open.spotify.com/artist/3T913bfZT1NlIHJkbmHY2D"
+    }
+  ],
+  "page": 0,
+  "size": 25,
+  "totalElements": 4,
+  "totalPages": 1
+}
