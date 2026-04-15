@@ -119,9 +119,9 @@
           "popularity": 45
         }
       ],
-      "page": 0,
-      "size": 1,
-      "totalElements": 3,
+      "page": 1,
+      "size": 2,
+      "totalElements": 4,
       "totalPages": 2
     }
   ]
