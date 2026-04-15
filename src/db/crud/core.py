@@ -1,5 +1,5 @@
 from src.schemas.song import Song
-from src.db.base import SongModel, ArtistModel, song_artists_table
+from src.db.tables.core import SongModel, ArtistModel, song_artists_table
 
 class SongRepository:
 
