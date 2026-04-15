@@ -3,12 +3,14 @@ from typing import Optional
 from pydantic import BaseModel
 from src.schemas.date import Date
 from src.schemas.artist import Artist
+from src.schemas.audio_features import AudioFeatures
 
 
 class Song(BaseModel):
-    rid: str
     title: str
     artists: list[Artist]
+    rid: Optional[str] = None
+    recco_beats_id: Optional[str] = None
     isrc: Optional[str] = None
     release_date: Optional[Date] = None
     genre: Optional[list[str]] = None
@@ -16,6 +18,7 @@ class Song(BaseModel):
     album: Optional[int] = None
     language: Optional[str] = None
     audio_url: Optional[str] = None
+    audio_features: Optional[AudioFeatures] = None
 
     @property
     def mbid(self) -> str:
