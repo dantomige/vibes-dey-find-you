@@ -2,12 +2,14 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.db.base import Base, SongModel, ArtistModel, song_artists_table
-from src.db.crud import SongRepository
+from src.db.base import Base
+from src.db.tables.core import SongModel, ArtistModel, song_artists_table
+from src.db.crud.core import SongRepository
 from src.schemas.song import Song
 from src.schemas.artist import Artist
 from src.schemas.date import Date
 
+### CHECK SONG ARTIST TABLE
 
 @pytest.fixture
 def db_session():
