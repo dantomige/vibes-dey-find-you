@@ -113,7 +113,7 @@ def test_get_artist_songs(load_fixture):
         Song(
             title="Wanna Be Heard",
             artists=[Artist(name="Kendrick Lamar")],
-            recco_beats_id="track1",
+            recco_beats_id="2740e843-bd29-47d9-afcb-9b97f3e14ef3",
         ),
         Song(
             title="LA",
@@ -123,7 +123,7 @@ def test_get_artist_songs(load_fixture):
                 Artist(name="Brandy"),
                 Artist(name="James Fauntleroy"),
             ],
-            recco_beats_id="track2",
+            recco_beats_id="db29b2b4-69b9-4965-99ce-fbd35b992dce",
         ),
         Song(
             title="Look Over Your Shoulder (feat. Kendrick Lamar)",
