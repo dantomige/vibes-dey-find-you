@@ -15,13 +15,15 @@ class SongModel(Base):
     __tablename__ = "songs"
 
     id = Column(String, primary_key=True)
-    rid = Column(String, unique=True, nullable=False)
-    mbid = Column(String, unique=True, nullable=False)
-    title = Column(String, nullable=False)
-    duration = Column(Integer, nullable=True)
+
+    music_brainz_id = Column(String, unique=True, nullable=False)
+    recco_beats_id = Column(String, unique=True, nullable=False)
     isrc = Column(String, nullable=True)
 
-    artists = relationship("ArtistModel", secondary=song_artists_table)
+    title = Column(String, nullable=False)
+    duration = Column(Integer, nullable=True)
+
+    artists = relationship("ArtistModel", secondary=song_artists_table, back_populates="songs")
 
 
 class ArtistModel(Base):
@@ -29,7 +31,9 @@ class ArtistModel(Base):
     __tablename__ = "artists"
 
     id = Column(String, primary_key=True)
-    arid = Column(String, unique=True, nullable=False)
+    music_brainz_id = Column(String, unique=True, nullable=False)
+    recco_beats_id = Column(String, unique=True, nullable=False)
+
     name = Column(String, nullable=False)
 
     songs = relationship(

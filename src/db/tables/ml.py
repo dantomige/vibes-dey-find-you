@@ -1,37 +1,20 @@
 from src.db.base import Base
-from sqlalchemy.orm import relationship
-from sqlalchemy import Table, Column, ForeignKey, Integer, String
-
-song_artists_table = Table(
-    "song_artists",
-    Base.metadata,
-    Column("song_id", ForeignKey("songs.id"), primary_key=True),
-    Column("artist_id", ForeignKey("artists.id"), primary_key=True),
-)
+from sqlalchemy import Column, ForeignKey, Integer, String, Float
 
 
-class SongModel(Base):
+class AudioFeaturesModel(Base):
 
-    __tablename__ = "songs"
+    __tablename__ = "audio_features"
 
-    id = Column(String, primary_key=True)
-    rid = Column(String, unique=True, nullable=False)
-    mbid = Column(String, unique=True, nullable=False)
-    title = Column(String, nullable=False)
-    duration = Column(Integer, nullable=True)
-    isrc = Column(String, nullable=True)
-
-    artists = relationship("ArtistModel", secondary=song_artists_table)
-
-
-class ArtistModel(Base):
-
-    __tablename__ = "artists"
-
-    id = Column(String, primary_key=True)
-    arid = Column(String, unique=True, nullable=False)
-    name = Column(String, nullable=False)
-
-    songs = relationship(
-        "SongModel", secondary=song_artists_table, back_populates="artists"
-    )
+    song_id = Column(String, ForeignKey("songs.id"), primary_key=True)
+    danceability = Column(Float, nullable=True)
+    energy = Column(Float, nullable=True)
+    key = Column(Integer, nullable=True)
+    loudness = Column(Float, nullable=True)
+    mode = Column(Integer, nullable=True)
+    speechiness = Column(Float, nullable=True)
+    acousticness = Column(Float, nullable=True)
+    instrumentalness = Column(Float, nullable=True)
+    liveness = Column(Float, nullable=True)
+    valence = Column(Float, nullable=True)
+    tempo = Column(Float, nullable=True)
