@@ -12,42 +12,22 @@ class MusicBrainzService:
     BASE_URL = "https://musicbrainz.org/ws/2/"
     PAGE_LIMIT = 100
 
-    def __init__(self, header, limit=None):
-        self.header = header
+    def __init__(self, client, limit=None):
+        self.client = client
         self.limit = limit if limit is not None else self.PAGE_LIMIT
 
     def _genre_from_json(self, tags_json) -> list[str]:
-        return [tag["name"] for tag in tags_json]
+        raise NotImplementedError
 
     def _artist_from_json(self, artist_json) -> Artist:
-        return Artist(arid=artist_json["id"], name=artist_json["name"])
+        raise NotImplementedError
 
     def _song_from_json(self, song_json) -> Song:
-        return Song(
-            rid=song_json.get("rid"),
-            isrc=song_json.get("isrc"),
-            title=song_json["title"],
-            artists=[
-                self._artist_from_json(artist_json["artist"])
-                for artist_json in song_json["artist-credit"]
-            ],
-            release_date=Date.from_string(song_json.get("first-release-date")),
-            genre=self._genre_from_json(song_json.get("tags")),
-            duration=song_json.get("length"),
-        )
+        raise NotImplementedError
 
     def list_genres(self) -> list[str]:
         """Fetch all genres from MusicBrainz."""
-
-        endpoint = f"{self.BASE_URL}genre/all?limit={self.limit}&fmt=txt"
-
-        response = requests.get(endpoint, headers=self.header)
-        if response.status_code != 200:
-            print(f"Error fetching data: {response.status_code}")
-            return []
-
-        genres = response.text.splitlines()
-        return genres
+        raise NotImplementedError
 
     def list_artists_in_genres(self, genres) -> list[Artist]:
         """
@@ -57,41 +37,7 @@ class MusicBrainzService:
             Returns:
                 list[Artist]: List of artists in the specified genres.
         """
-
-        all_artists = []
-        seen_artist_arids = set()
-
-        for genre in genres:
-
-            offset = 0
-            count = None
-
-            while count != 0:
-                endpoints = f"{self.BASE_URL}artist?query=tag:{genre}&limit={self.limit}&offset={offset}&fmt=json"
-                response = requests.get(endpoints, headers=self.header)
-
-                if response.status_code != 200:
-                    print(f"Error fetching data: {response.status_code}")
-
-                response_json = response.json()
-
-                artists_jsons = response_json["artists"]
-                artists = [self._artist_from_json(artist) for artist in artists_jsons]
-                new_artists = [
-                    artist for artist in artists if artist.arid not in seen_artist_arids
-                ]
-
-                all_artists.extend(new_artists)
-                seen_artist_arids.update(
-                    [new_artist.arid for new_artist in new_artists]
-                )
-
-                count = len(artists)
-                offset += count
-
-                time.sleep(1)
-
-        return all_artists
+        raise NotImplementedError
     
     def list_songs_in_genres(self, genres, date_from=None, date_to=None) -> list[Song]:
         """
@@ -103,39 +49,7 @@ class MusicBrainzService:
         Returns:
             list[Song]: List of songs in the specified genres.
         """
-        all_songs = []
-        seen_song_mbids = set()
-
-        for genre in genres:
-
-            offset = 0
-            count = None
-
-            while count != 0:
-                endpoint = f"{self.BASE_URL}recording?query=tag:{genre}&limit={self.limit}&offset={offset}&fmt=json"
-
-                response = requests.get(endpoint, headers=self.header)
-
-                if response.status_code != 200:
-                    print(f"Error fetching data: {response.status_code}")
-
-                response_json = response.json()
-
-                print(response_json["count"], response_json["offset"])
-
-                songs_jsons = response_json["recordings"]
-                songs = [self._song_from_json(song_json) for song_json in songs_jsons]
-                new_songs = [song for song in songs if song.mbid not in seen_song_mbids]
-
-                all_songs.extend(new_songs)
-                seen_song_mbids.update([new_song.mbid for new_song in new_songs])
-
-                count = len(songs)
-                offset += count
-
-                time.sleep(1)
-
-        return all_songs
+        raise NotImplementedError
 
 
 if __name__ == "__main__":
