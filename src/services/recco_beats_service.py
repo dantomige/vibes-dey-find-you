@@ -43,7 +43,8 @@ class ReccoBeatService:
             recco_beats_artist_id (str): The Recco Beats artist ID for which to
             fetch the songs.
         Returns:
-            list[Song]: A list of songs corresponding to the given Recco Beats artist ID.
+            list[Song]: A list of songs corresponding to the given Recco Beats artist ID. Populates song
+            with the following fields: title, artist_name, recco_beats_track_id. The other fields can be left as None or empty.
         """
         raise NotImplementedError
 
