@@ -45,7 +45,9 @@ class ReccoBeatService:
         Returns:
             list[Song]: A list of songs corresponding to the given Recco Beats artist ID. Populates song
             with the following fields: title, artist_name, recco_beats_track_id. The other fields can be left as None or empty.
+            Artists are also populated with the name and recco_beats_id fields, and the other fields can be left as None or empty.
         """
+
         raise NotImplementedError
 
     def fetch_audio_features(
