@@ -13,7 +13,7 @@ class VectorDBRepository:
 
     def get_vector(self, song_id: str) -> torch.Tensor | None:
         result = self.collection.get(ids=[song_id])
-        if result["ids"]:
+        if result["embeddings"]:
             return torch.tensor(result["embeddings"][0])
         return None
 
@@ -23,10 +23,9 @@ class VectorDBRepository:
     def remove_vector(self, song_id: str) -> None:
         self.collection.delete(ids=[song_id])
 
-    def search(self, query: str, k: int) -> QueryResult:
-        vector = self.encode(query)
+    def search(self, query: torch.Tensor, k: int) -> QueryResult:
 
         return self.collection.query(
-            query_embeddings=[vector],
+            query_embeddings=[query.tolist()],
             n_results=k
         )
