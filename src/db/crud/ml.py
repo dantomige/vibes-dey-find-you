@@ -8,12 +8,12 @@ class AudioFeaturesRepository:
     def __init__(self, db):
         self.db = db
 
-    def get_audio_features(self, song_id: str) -> AudioFeaturesModel | None:
-        raise NotImplementedError
-
     def add_audio_features(
         self, song_id: str, features: AudioFeatures
     ) -> AudioFeaturesModel:
+        raise NotImplementedError
+
+    def get_audio_features(self, song_id: str) -> AudioFeaturesModel | None:
         raise NotImplementedError
 
     def update_audio_features(
