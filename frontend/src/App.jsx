@@ -12,12 +12,21 @@ function App() {
     if (!songRequest) return;
 
     try {
-      // const res = await fetch(""); // backend server request
 
-      // const data = await res.json();
+      const res = await fetch("http://localhost:8000/recommend", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ query: songRequest, num_songs: 5 })
+      });
+
+      const data = await res.json();
+
+      const songs = data.songs;
 
       // process the data and set songs
-      setSongs([]);
+      setSongs(songs);
 
       setSongRequest("");
 
